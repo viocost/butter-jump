@@ -53,14 +53,15 @@
 ;;; Code:
 
 (defvar butter-jump-lines-distance 45
-  "Jump distance in lines")
+  "Jump distance in lines.")
 
 (defvar butter-jump-step-delay 0.001
-  "Delay between jumping steps in seconds")
+  "Delay between jumping steps in seconds.")
 
 
 (defun butter-jump-perform-jump-move (direction step)
-  "Performs a signle jump step"
+  "Perform a signle jump STEP.
+Argument DIRECTION jump direction."
   (if (eq direction 'up)
       (progn
         (ignore-errors (scroll-down-line step))
@@ -71,7 +72,11 @@
         (forward-line step))))
 
 (defun butter-jump-perform-smooth-jump (direction &optional step-lines-distance delay iteration)
-  "Performs smooth jump"
+  "Perform smooth jump.
+Argument DIRECTION jump direction.
+Optional argument STEP-LINES-DISTANCE number of lines to jump.
+Optional argument DELAY Delay before next step in seconds.
+Optional argument ITERATION jump step number."
   (unless delay (setq delay 1))
   (unless iteration (setq iteration 1))
   (unless step-lines-distance (setq step-lines-distance butter-jump-lines-distance))
@@ -92,13 +97,13 @@
 
 ;;;###autoload
 (defun butter-jump-up()
-  "Performs smooth jump up"
+  "Perform smooth jump up."
   (interactive)
   (butter-jump-perform-smooth-jump 'up))
 
 ;;;###autoload
 (defun butter-jump-down ()
-  "Performs smooth jump down"
+  "Perform smooth jump down."
   (interactive)
   (butter-jump-perform-smooth-jump 'down))
 
