@@ -10,4 +10,4 @@ It provides 2 functions:
 `butter-jump-down`
 
 Bind them to a key combination of your choice.
-You can also customize the scroll distance by editing `scroll-lines-distance` variable which is set by default to `45`
+You can also customize the jump distance by editing `butter-jump-lines-distance` variable which is set by default to `45` lines.
