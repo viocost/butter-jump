@@ -1,7 +1,11 @@
 # butter-jump
 Eye pleasant scrolling in Emacs.
 
-https://user-images.githubusercontent.com/11525590/210425718-6bb2a713-afe3-4e65-90c5-9d6c974a845d.mp4
+
+
+https://user-images.githubusercontent.com/11525590/210650751-be98a5ac-3a90-424d-8b0a-beb259abcf91.mp4
+
+
 
 ## Usage
 It provides 2 functions:
