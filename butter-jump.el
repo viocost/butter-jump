@@ -1,6 +1,6 @@
-;;; butter-jump.el --- Eye pleasent jump experience
+;;; butter-jump.el --- Eye pleasant jump experience
 
-;; Copyright (c) 2007-2016 Konstantin Y. Rybakov
+;; Copyright (c) 2007-2023 Konstantin Y. Rybakov
 ;;
 ;; Filename: butter-jump.el
 ;; Description: Make emacs jump smoothly
@@ -36,22 +36,13 @@
 ;;     butter-jump-down
 ;;
 ;;     Bind them to a key combination of your choice.
-;;     You may also customize the jump distance by editing
+;;     You may also customize the jump distance by editing variables:
 ;;
-
-
-;;; Description
+;;     butter-jump-lines-distance - how many lines covered per jump
 ;;
-;; The package provides smooth jumping functionality on half-page jump.
-;;
-;; Instead of jumping deirectly to the destination,
-;; the jump is broken into intermediary steps that are executed sequentially
-;; with increased delay. That provides an eye pleasent jumping animation.
-;;
-;; See the README.md for more details.
+;;     butter-jump-step-delay - intermediary steps delay, this affects the speed of the jump.
 
 ;;; Code:
-
 (defvar butter-jump-lines-distance 45
   "Jump distance in lines.")
 
@@ -60,16 +51,15 @@
 
 
 (defun butter-jump-perform-jump-move (direction step)
-  "Perform a signle jump STEP.
+  "Perform a single jump STEP.
 Argument DIRECTION jump direction."
   (if (eq direction 'up)
       (progn
         (ignore-errors (scroll-down-line step))
         (forward-line (* -1 step)))
-      (progn
-        (if (not (pos-visible-in-window-p (point-max)))
-                (ignore-errors (scroll-up-line step)) )
-        (forward-line step))))
+        (unless (pos-visible-in-window-p (point-max))
+                (ignore-errors (scroll-up-line step)))
+        (forward-line step)))
 
 (defun butter-jump-perform-smooth-jump (direction &optional step-lines-distance delay iteration)
   "Perform smooth jump.
@@ -89,7 +79,7 @@ Optional argument ITERATION jump step number."
          ;; calculating delay for the next step based on iteration using exponential function
          ;; this is needed to achieve slowdown by the end of the jump
          (calculated-delay (* butter-jump-step-delay (expt 1.4  iteration )) ))
-    (if (not (eq step-lines-distance 0))
+    (unless (eq step-lines-distance 0)
         (progn
           (butter-jump-perform-jump-move direction step)
           (sit-for calculated-delay)
